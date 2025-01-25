@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPANK Coin</title>
+  <style>
+    /* Basic Layout */
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #ffe6e6;
+      text-align: center;
+      padding: 30px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 40px;
+      color: #ff4500;
+      text-shadow: 2px 2px #ffa07a;
+    }
+
+    header p {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .character-selection {
+      display: flex;
+      justify-content: space-around;
+      margin: 30px 0;
+    }
+
+    .character {
+      cursor: pointer;
+      padding: 10px;
+      width: 120px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .character:hover {
+      transform: scale(1.2) rotate(-5deg);
+    }
+
+    .character h2 {
+      font-size: 18px;
+      color: #ff4500;
+      margin-bottom: 10px;
+    }
+
+    .musk, .trump, .putin {
+      position: relative;
+      width: 100px;
+      height: 150px;
+    }
+
+    /* Cartoon Head Styles */
+    .head {
+      width: 100px;
+      height: 100px;
+      background: #ffe4b5;
+      border-radius: 50%;
+      border: 4px solid #000;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* Eyes and Mouth */
+    .eyes {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .eye {
+      width: 20px;
+      height: 20px;
+      background-color: #000;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    .mouth {
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      width: 60%;
+      height: 10px;
+      background-color: #d10000;
+      border-radius: 10px;
+    }
+
+    /* Emotions */
+    .tears {
+      width: 10px;
+      height: 10px;
+      background-color: #00f;
+      border-radius: 50%;
+      position: absolute;
+      animation: tearsAnimation 1s ease-in-out infinite;
+    }
+
+    .tears:nth-child(1) {
+      top: 40%;
+      left: 25%;
+    }
+
+    .tears:nth-child(2) {
+      top: 40%;
+      left: 65%;
+    }
+
+    @keyframes tearsAnimation {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(15px);
+        opacity: 1;
+      }
+    }
+
+    .open-mouth {
+      width: 60%;
+      height: 20px;
+      background-color: #d10000;
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      border-radius: 10px;
+      animation: openMouthAnimation 0.3s ease-out forwards;
+    }
+
+    @keyframes openMouthAnimation {
+      0% {
+        width: 60%;
+        height: 10px;
+      }
+      100% {
+        width: 80%;
+        height: 20px;
+      }
+    }
+
+    /* Message */
+    .message {
+      margin-top: 20px;
+      font-size: 22px;
+      color: #ff4500;
+      font-weight: bold;
+      text-align: center;
+      visibility: hidden;
+      transition: visibility 0s, opacity 0.5s ease-in;
+    }
+
+    /* Weapon Selection Styles */
+    #weapon-selection {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .weapon {
+      padding: 10px 20px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      background-color: #fff;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .weapon:hover {
+      transform: scale(1.1);
+      background-color: #ffefef;
+    }
+
+    .weapon.selected {
+      border-color: #ff6347;
+      background-color: #fffae5;
+    }
+
+    .tears {
+      position: absolute;
+      top: 50%;
+      left: 57%;
+      width: 10px;
+      height: 20px;
+      background-color: #00f;
+      border-radius: 5px;
+      animation: fall 0.5s linear infinite;
+    }
+
+    .dizzy-stars {
+      position: absolute;
+      top: 60px;
+      left: 30%;
+      width: 42px;
+      height: 20px;
+      background-color: #ff0;
+      border-radius: 50%;
+      animation: spin 0.5s linear infinite;
+    }
+
+    .angry-smoke {
+      position: absolute;
+      top: 100px;
+      left: 40%;
+      width: 40px;
+      height: 20px;
+      background-color: #333;
+      border-radius: 50%;
+      animation: puff 0.5s ease-out infinite;
+    }
+
+    #musk .head {
+      background-color: #ffe0bd;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin: auto;
+      position: relative;
+    }
+
+    #musk .eyes {
+      position: absolute;
+      top: 30%;
+      left: 20%;
+      display: flex;
+      justify-content: space-between;
+      width: 60%;
+    }
+
+    #musk .eye {
+      background-color: #000;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+    }
+
+    #musk .mouth {
+      position: absolute;
+      top: 50%;
+      left: 35%;
+      width: 30px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: #000;
+    }
+
+    #musk .mouth.neutral {
+      background-color: transparent;
+      border: 2px solid #000;
+      border-radius: 20px;
+    }
+
+    /* Donald Trump Styles */
+    #trump .head {
+      background-color: #ffe0bd;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin: auto;
+      position: relative;
+    }
+
+    #trump .eyes {
+      position: absolute;
+      top: 35%;
+      left: 20%;
+      display: flex;
+      justify-content: space-between;
+      width: 60%;
+    }
+
+    #trump .eye {
+      background-color: #000;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+    }
+
+    #trump .mouth {
+      position: absolute;
+      top: 50%;
+      left: 25%;
+      width: 50px;
+      height: 15px;
+      background-color: #d22;
+      border-radius: 50%;
+    }
+
+    #trump .hair {
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      width: 80px;
+      height: 30px;
+      background-color: #ffcc00;
+      border-radius: 15px 15px 0 0;
+    }
+
+    /* Vladimir Putin Styles */
+    #putin .head {
+      background-color: #ffe0bd;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin: auto;
+      position: relative;
+    }
+
+    #putin .eyes {
+      position: absolute;
+      top: 30%;
+      left: 20%;
+      display: flex;
+      justify-content: space-between;
+      width: 60%;
+    }
+
+    #putin .eye {
+      background-color: #000;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+    }
+
+    #putin .mouth {
+      position: absolute;
+      top: 50%;
+      left: 35%;
+      width: 30px;
+      height: 15px;
+      background-color: brown;
+      border-radius: 50%;
+    }
+
+    #putin .mouth.neutral {
+      background-color: transparent;
+      border: 2px solid #000;
+      border-radius: 20px;
+    }
+
+    #spank-counter {
+      display: block;
+      font-size: 100px;
+      margin-top: 100px;
+    }
+
+    #putin .brows {
+      position: absolute;
+      top: 20%;
+      left: 25%;
+      display: flex;
+      justify-content: space-between;
+      width: 50%;
+    }
+
+    #putin .brow {
+      width: 30px;
+      height: 5px;
+      background-color: #000;
+      border-radius: 10px;
+    }
+
+    @keyframes fall {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes puff {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.5);
+      }
+    }
+    #putin .head::before {
+      content: '💩';
+      position: absolute;
+      top: -50px;
+      left: 150px;
+      font-size: 24px;
+    }
+
+    #trump .head::before {
+      content: '💰';
+      position: absolute;
+      top: -50px;
+      left: 150px;
+      font-size: 24px;
+    }
+
+    #musk .head::before {
+      content: '🚀';
+      position: absolute;
+      top: -50px;
+      left: 150px;
+      font-size: 24px;
+    }
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Welcome to SPANK Coin!</h1>
+    <p>Click on a famous person to SPANK them! Let’s see how they react!</p>
+  </header>
+  <!-- Weapon Selection -->
+  <div id="weapon-selection">
+  </div>
+  <div class="character-selection">
+    <div class="character" id="musk" data-name="Elon Musk">
+      <h2>Elon Musk</h2>
+      <div class="musk">
+        <div class="head"></div>
+        <div class="eyes">
+          <div class="eye"></div>
+          <div class="eye"></div>
+        </div>
+        <div class="mouth"></div>
+      </div>
+    </div>
+
+    <div class="character" id="trump" data-name="Donald Trump">
+      <h2>Donald Trump</h2>
+      <div class="trump">
+        <div class="head"></div>
+        <div class="eyes">
+          <div class="eye"></div>
+          <div class="eye"></div>
+        </div>
+        <div class="mouth"></div>
+      </div>
+    </div>
+
+    <div class="character" id="putin" data-name="Vladimir Putin">
+      <h2>Vladimir Putin</h2>
+      <div class="putin">
+        <div class="head"></div>
+        <div class="eyes">
+          <div class="eye"></div>
+          <div class="eye"></div>
+        </div>
+        <div class="mouth"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="message" id="message"></div>
+</div>
+
+<script>
+  let spankCounter = parseInt(getCookie("spankCounter")) || 0;
+
+  // Add a span to display the counter
+  const counterSpan = document.createElement("span");
+  counterSpan.id = "spank-counter";
+  counterSpan.textContent = `Spanks: ${spankCounter}`;
+  document.body.appendChild(counterSpan);
+
+  // Increment counter, save to cookie, and show alert
+  function handleSpank(event) {
+    spankCounter++;
+    counterSpan.textContent = `Spanks: ${spankCounter}`;
+    setCookie("spankCounter", spankCounter, 24); // Save counter for 24 hours
+
+    if (spankCounter >= 5) {
+      alert("Stop aggression for today! Welcome back tomorrow!");
+
+      // Disable all clicks
+      document.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }, true);
+    }
+  }
+
+  // Utility functions to handle cookies
+  function setCookie(name, value, hours) {
+    const date = new Date();
+    date.setTime(date.getTime() + hours * 60 * 60 * 1000);
+    document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+  }
+
+  function getCookie(name) {
+    const cookieArr = document.cookie.split("; ");
+    for (let cookie of cookieArr) {
+      const [key, value] = cookie.split("=");
+      if (key === name) return value;
+    }
+    return null;
+  }
+
+  // Attach the spank handler to all characters
+  document.querySelectorAll(".character").forEach(character => {
+    character.addEventListener("click", handleSpank);
+  });
+
+  // Disable clicks if limit is already reached
+  if (spankCounter >= 5) {
+    alert("Stop aggression for today! Welcome back tomorrow!");
+
+    document.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }, true);
+  }
+
+
+  // Attach the spank handler to all characters
+  document.querySelectorAll(".character").forEach(character => {
+    character.addEventListener("click", handleSpank);
+  });
+
+
+  // Attach the spank handler to all characters
+  document.querySelectorAll(".character").forEach(character => {
+    character.addEventListener("click", handleSpank);
+  });
+
+
+  // Updated character data for messages with individual reactions
+  const characterMessages = {
+    "Elon Musk": "Ouch! Musk is feeling the hit!",
+    "Donald Trump": "Trump is stunned! That hurt!",
+    "Vladimir Putin": "Putin is shocked! Ouch!"
+  };
+
+  const characterEmojis = {
+    "Elon Musk": "😢", // Tears for Elon Musk
+    "Donald Trump": "😵", // Dizzy face for Donald Trump
+    "Vladimir Putin": "😡" // Angry face for Vladimir Putin
+  };
+
+  // Weapon data
+  const weapons = [
+    { name: "Bat", icon: "🏏" },
+    { name: "Slipper", icon: "👡" },
+    { name: "Hammer", icon: "🔨" }
+  ];
+
+  // Message and weapon elements
+  const messageElement = document.getElementById('message');
+
+  // Current selected weapon
+  let selectedWeapon = weapons[0];
+
+  // Populate weapon selection
+  const weaponSelection = document.getElementById('weapon-selection');
+  weapons.forEach((weapon, index) => {
+    const weaponDiv = document.createElement('div');
+    weaponDiv.textContent = `${weapon.icon} ${weapon.name}`;
+    weaponDiv.classList.add('weapon');
+    if (index === 0) weaponDiv.classList.add('selected');
+    weaponDiv.addEventListener('click', () => selectWeapon(index));
+    weaponSelection.appendChild(weaponDiv);
+  });
+
+  function selectWeapon(index) {
+    document.querySelectorAll('.weapon').forEach((el) => el.classList.remove('selected'));
+    document.querySelectorAll('.weapon')[index].classList.add('selected');
+    selectedWeapon = weapons[index];
+  }
+
+  // Add click event listeners to each character
+  document.getElementById('musk').addEventListener('click', () => {
+    showMessage("Elon Musk");
+    showEmotion("musk");
+  });
+
+  document.getElementById('trump').addEventListener('click', () => {
+    showMessage("Donald Trump");
+    showEmotion("trump");
+  });
+
+  document.getElementById('putin').addEventListener('click', () => {
+    showMessage("Vladimir Putin");
+    showEmotion("putin");
+  });
+
+  // Function to show the message
+  function showMessage(characterName) {
+    const message = `${characterMessages[characterName]} ${selectedWeapon.icon}`;
+    const emoji = characterEmojis[characterName];
+
+    messageElement.textContent = `${message} ${emoji}`; // Set message text
+    messageElement.style.visibility = "visible"; // Show the message
+
+    // Hide message after 2 seconds
+    setTimeout(() => {
+      messageElement.style.visibility = "hidden";
+    }, 2000);
+  }
+
+  // Function to show emotions
+  function showEmotion(characterId) {
+    const characterDiv = document.getElementById(characterId);
+
+    // Clear previous effects
+    if (document.querySelector('.effects')) {
+      document.querySelector('.effects').innerHTML = ''; // Reset character visuals
+    }
+
+    // Create and apply the effect
+    const effect = document.createElement('div');
+    effect.classList.add('effects');
+    if (characterId === 'musk') {
+      effect.classList.add('tears'); // Tears for Elon Musk
+    } else if (characterId === 'trump') {
+      effect.classList.add('dizzy-stars'); // Dizzy stars for Donald Trump
+    } else if (characterId === 'putin') {
+      effect.classList.add('angry-smoke'); // Angry smoke for Vladimir Putin
+    }
+    characterDiv.appendChild(effect);
+
+    // Remove the effect after 1 second
+    setTimeout(() => {
+      document.querySelector('.effects').remove(); // Clear effects
+    }, 1000);
+  }
+</script>
+</body>
+</html>

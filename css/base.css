@@ -1,0 +1,129 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    text-align: center;
+    padding: 30px;
+    margin: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 36px;
+    color: #ff6347;
+}
+
+header p {
+    font-size: 18px;
+    color: #333;
+}
+
+#weapon-selection {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.weapon {
+    padding: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.weapon:hover {
+    transform: scale(1.1);
+    background-color: #ffefc4;
+}
+
+.weapon.selected {
+    border-color: #ff6347;
+    background-color: #ffefc4;
+}
+
+/* Character Selection */
+.character-selection {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+
+.character {
+    cursor: pointer;
+    padding: 10px;
+    width: 120px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.character:hover {
+    transform: scale(1.1);
+}
+
+.character h2 {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Character Visual Styles */
+.character-visual {
+    position: relative;
+    width: 100px;
+    height: 150px;
+    margin: auto;
+}
+
+/* Elon Musk */
+#musk .head {
+    background-color: #ffe0bd;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    position: relative;
+}
+#musk .mouth {
+    top: 65%;
+}
+
+/* Donald Trump */
+#trump .head {
+    background-color: #ffe0bd;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    position: relative;
+}
+#trump .hair {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 60px;
+    height: 20px;
+    background-color: #ffcc00;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Vladimir Putin */
+#putin .brows {
+    position: absolute;
+    top: 25%;
+    left: 15%;
+}
+#putin .brow {
+    width: 20px;
+    height: 5px;
+    background-color: #000;
+    border-radius: 10px;
+}
